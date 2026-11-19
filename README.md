@@ -17,6 +17,8 @@ Front estático (PWA) que fala com o **mesmo Apps Script** do SheetFin. A planil
 2. Settings > Pages > Source: *Deploy from a branch* > `main` / `(root)`.
 3. Abra `https://SEU-USUARIO.github.io/NOME-DO-REPO/`.
 
+**Dica:** se abrir o index.html direto do computador, o login funciona, mas as chamadas ao Apps Script só são confiáveis pelo endereço do GitHub Pages.
+
 **4. Instalar no celular**: menu do navegador > *Adicionar à tela inicial*.
 
 ## Atualizar versão
