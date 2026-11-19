@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SheetFin — Controle Financeiro</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src https://script.google.com https://script.googleusercontent.com; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#07422b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="SheetFin">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/sheetfin.css?v=2026.11.18.1">
+</head>
+<body>
+<main id="login" class="caixa">
+
+  <!-- LOGO (ícone separado) + NOME + SLOGAN -->
+  <div class="brand">
+    <img class="brand-icon" src="assets/logo-login.webp" alt="Logo SheetFin">
+    <svg class="brand-art" viewBox="0 0 300 84" role="img" aria-label="SheetFin - Seu dinheiro. Seu controle." xmlns="http://www.w3.org/2000/svg">
+      <text x="150" y="54" text-anchor="middle" textLength="298" lengthAdjust="spacingAndGlyphs" font-family="Arial,Helvetica,sans-serif" font-size="62" font-weight="800"><tspan fill="#ffffff">Sheet</tspan><tspan fill="#42ed7d">Fin</tspan></text>
+      <rect x="0" y="62" width="300" height="22" rx="3" fill="#19e96a"/>
+      <text x="150" y="77.5" text-anchor="middle" textLength="270" lengthAdjust="spacing" font-family="Arial,Helvetica,sans-serif" font-size="12.5" font-weight="800" fill="#00381d">SEU DINHEIRO. SEU CONTROLE.</text>
+    </svg>
+  </div>
+
+  <div class="login-campo field"><label class="sr" for="lUsu">Usuário</label>
+    <div class="login-senha"><input id="lUsu" autocomplete="username" autocapitalize="characters" maxlength="20" placeholder="USUÁRIO">
+      <svg class="lg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div></div>
+  <div class="login-campo field"><label class="sr" for="lSen">Senha</label>
+    <div class="login-senha"><input id="lSen" type="password" autocomplete="current-password" maxlength="50" placeholder="SENHA">
+      <button type="button" id="lVerBtn" class="ver" onclick="lVer()" aria-label="Mostrar senha">👁</button></div></div>
+  <button type="button" id="lBtn" class="btn" style="width:100%" onclick="lEntrar()">Entrar</button>
+  <p id="erro" class="neg login-erro" role="alert"></p>
+</main>
+<div id="app" hidden>
+  <div class="appbar">
+    <span class="ab-t" id="abTitle" hidden></span>
+    <button id="menuBtn" class="hb" aria-label="Abrir menu" aria-expanded="false" aria-controls="menuNav" onclick="menuToggle()">
+      <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+  <div class="menu-ov" onclick="menuToggle(false)"></div>
+ <nav id="menuNav">
+    <div class="logo-box">
+      <img class="logo-img" src="assets/logo-menu.jpg" alt="SheetFin">
+      <div class="logo-txt"><strong>Sheet<em>Fin</em></strong><small>Seu dinheiro. Seu controle.</small></div>
+    </div>
+    <button data-v="dash" class="on"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><span>Painel</span></button>
+    <button data-v="resumo"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span><span>Resumo</span></button>
+    <button data-v="novo"><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span>Lançar</span></button>
+    <button data-v="busca"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span><span>Pesquisar</span></button>
+    <button data-v="orc"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 5v14M8 5v14M12 5v14M16 5v14M20 5v14"/></svg></span><span>Orçamento</span></button>
+    <button data-v="div"><span class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></span><span>Dívidas</span></button>
+    <button data-v="cc" data-adm><span class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 12L12 4M4 18L18 4M8 20L20 8M14 20l6-6"/></svg></span><span>Contracheque</span></button>
+    <button data-v="cfg"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span><span>Config</span></button>
+    <button data-apoie onclick="apoieAbrir()"><span class="ico"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.2l7.8-7.7 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg></span><span>Apoie</span></button>
+    <div class="menu-bottom"><button class="sair" onclick="sair()"><span class="ico"><svg viewBox="0 0 24 24"><path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3M16 8l4 4-4 4M20 12H10"/></svg></span><span>Sair</span></button></div>
+  </nav>
+  <main class="main-content">
+    <div id="welcome" class="welcome">
+      <div class="wl">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="wgBar" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#7ef0ae"/><stop offset="1" stop-color="#e8fff1"/></linearGradient></defs>
+          <rect x="14" y="64" width="12" height="20" rx="2" fill="url(#wgBar)"/><rect x="32" y="52" width="12" height="32" rx="2" fill="url(#wgBar)"/><rect x="50" y="38" width="12" height="46" rx="2" fill="url(#wgBar)"/>
+          <path d="M10 56 L34 40 L50 46 L82 18" fill="none" stroke="#e8fff1" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><polygon points="70,14 88,12 86,30" fill="#e8fff1"/></svg>
+        <div><h1>Bem-vindo(a)!</h1><p>Aqui você acompanha suas finanças.</p></div>
+      </div>
+    </div>
+    <header class="topbar" id="topbar" hidden><span class="tb-ico" id="pageIco"></span><div><h1 id="pageTitle">Painel financeiro</h1><p id="pageSubtitle"></p></div></header>
+
+    <!-- PAINEL (lançamentos) -->
+    <section id="dash">
+      <div class="tool"><div><h2>Visão geral</h2><p>Confira o desempenho do seu mês.</p></div>
+        <div class="field"><label for="dMes">Período</label><input type="month" id="dMes"></div></div>
+      <div id="cards"></div>
+      <div class="dgrid">
+        <div class="panel"><div class="ph"><div><h2>Receitas e despesas</h2><p>Comparativo mês a mês no ano.</p></div>
+          <div class="legend" style="margin:0"><span><i style="background:#55b982"></i>Receitas</span><span><i style="background:var(--primary)"></i>Despesas</span></div></div>
+          <div id="ano"></div></div>
+        <div class="panel"><div class="ph"><div><h2>Despesas por categoria</h2><p>Onde seu dinheiro está sendo utilizado.</p></div></div><div id="cats"></div></div>
+      </div>
+      <div class="dgrid">
+        <div class="panel"><div class="ph"><div><h2>Últimos lançamentos</h2><p>Movimentações mais recentes do mês.</p></div><button class="link" onclick="navegar('busca')">Ver todos →</button></div><div id="recentes"></div></div>
+        <div class="panel"><div class="ph"><div><h2>Dívidas</h2><p>Compromisso da renda com parcelas.</p></div><button class="link" onclick="navegar('div')">Detalhes →</button></div><div id="divBox"></div></div>
+      </div>
+    </section>
+
+    <!-- RESUMO (aba Resumo) -->
+    <section id="resumo" hidden><div id="rBox"></div></section>
+
+    <!-- LANÇAR -->
+    <section id="novo" hidden><div class="panel wide"><h2>Detalhes do lançamento</h2><p class="sub" style="margin-bottom:20px">Registre uma entrada ou saída.</p>
+      <div class="form-grid">
+        <div class="field"><label for="nTipo">Tipo</label><select id="nTipo"><option>Despesa</option><option>Receita</option></select></div>
+        <div class="field"><label for="nData">Data</label><input type="date" id="nData"></div>
+        <div class="field"><label for="nCat">Categoria</label><select id="nCat"></select></div>
+        <div class="field"><label for="nPag">Forma de pagamento</label><select id="nPag"><option value="">Selecione</option><option>Pix</option><option>Débito</option><option>Crédito</option><option>Dinheiro</option><option>Boleto</option></select></div>
+        <div class="field full"><label for="nDesc">Descrição</label><input id="nDesc" maxlength="120" placeholder="Ex.: Compra no supermercado"></div>
+        <div class="field full"><label for="nValor">Valor</label><div class="money"><span>R$</span><input id="nValor" inputmode="decimal" placeholder="0,00"></div></div>
+      </div>
+      <p id="nMsg" role="status" style="font-weight:600;margin:16px 0 0"></p>
+      <button class="btn" id="sBtn" onclick="salvar()">Salvar lançamento</button></div></section>
+
+    <!-- PESQUISAR -->
+    <section id="busca" hidden><div class="panel wide"><div class="form-grid">
+        <div class="field"><label for="bMes">Mês</label><input type="month" id="bMes"></div>
+        <div class="field"><label for="bTipo">Tipo</label><select id="bTipo"><option value="">Todos</option><option>Despesa</option><option>Receita</option></select></div>
+        <div class="field full"><label for="bTexto">Descrição ou categoria</label><input id="bTexto" placeholder="Digite o que deseja encontrar..."></div></div>
+      <button class="btn" onclick="buscar()">⌕ Pesquisar lançamentos</button></div><div id="lista"></div></section>
+
+    <!-- ORÇAMENTO (aba Orçamento) -->
+    <section id="orc" hidden><div id="oBox"></div></section>
+
+    <!-- DÍVIDAS (abas Empréstimos, Plano e Quitação) -->
+    <section id="div" hidden>
+      <div class="subtabs">
+        <button data-s="plano" class="on" onclick="subtab('plano')">Plano de quitação</button>
+        <button data-s="emp" onclick="subtab('emp')">Empréstimos</button>
+        <button data-s="ant" onclick="subtab('ant')">Antecipações</button>
+        <button data-s="qui" onclick="subtab('qui')">Simuladores</button>
+        <button data-s="cartao" onclick="subtab('cartao')">Cartão parcelado</button>
+      </div>
+
+      <div class="st" data-s="plano">
+        <div class="panel wide"><h2>Simular o plano</h2><p class="sub" style="margin-bottom:16px">Mude os valores e veja o efeito na hora.</p>
+          <div class="par"><div class="field"><label for="pExtra">Extra por mês (R$)</label><input id="pExtra" inputmode="decimal"></div>
+            <div class="field"><label for="pLump">Dinheiro à vista (R$)</label><input id="pLump" inputmode="decimal"></div></div>
+          <div class="par" style="margin-top:16px"><button class="btn" onclick="dividas(true)">Simular</button><button class="btn sec" data-adm onclick="salvarCfg()">Salvar no plano</button></div></div>
+        <div class="panel wide"><div id="dPlano"></div></div>
+        <div class="panel wide"><h2>Detalhe mês a mês</h2>
+          <div class="par" style="margin-top:12px"><div class="field"><label for="pdK">Estratégia</label><select id="pdK"><option value="0">Avalanche (maior taxa primeiro)</option><option value="1">Bola de neve (menor saldo primeiro)</option><option value="2">Libera fluxo (maior parcela ÷ saldo)</option></select></div>
+            <button class="btn" onclick="planoDet()">Ver detalhe</button></div>
+          <div id="pdOut" style="margin-top:16px"></div></div>
+      </div>
+
+      <div class="st" data-s="emp" hidden>
+        <div class="panel wide" data-adm><h2 id="eTit">Cadastrar empréstimo / financiamento</h2>
+          <p class="sub" style="margin-bottom:16px">Informe a taxa mensal OU o valor financiado (a taxa é calculada). O saldo de quitação do banco é opcional.</p>
+          <div class="form-grid">
+            <div class="field full"><label for="eNome">Credor / identificação</label><input id="eNome" maxlength="60"></div>
+            <div class="field"><label for="eTipo">Tipo</label><select id="eTipo"></select></div>
+            <div class="field"><label for="eValor">Valor financiado (R$)</label><input id="eValor" inputmode="decimal"></div>
+            <div class="field"><label for="eParcelas">Nº de parcelas</label><input id="eParcelas" type="number" min="1"></div>
+            <div class="field"><label for="eParcela">Valor da parcela (R$)</label><input id="eParcela" inputmode="decimal"></div>
+            <div class="field"><label for="eTaxa">Taxa mensal (%) — se souber</label><input id="eTaxa" inputmode="decimal" placeholder="Ex.: 1,44"></div>
+            <div class="field"><label for="ePrimeira">Vencimento da 1ª parcela</label><input id="ePrimeira" type="date"></div>
+            <div class="field full"><label for="eQuit">Valor de quitação informado pelo banco (opcional)</label><input id="eQuit" inputmode="decimal"></div>
+          </div>
+          <p id="eMsg" role="status" style="font-weight:600;margin:14px 0 0"></p>
+          <div class="par" style="margin-top:6px"><button class="btn" onclick="empSalvar()">Salvar empréstimo</button><button class="btn sec" onclick="empLimpar()">Limpar / cancelar edição</button></div></div>
+        <div class="tool"><div><h2>Empréstimos cadastrados</h2><p id="eTot">Detalhes das suas dívidas.</p></div></div>
+        <div id="dLista"></div>
+      </div>
+
+      <div class="st" data-s="ant" hidden>
+        <div class="panel wide"><h2>Registrar antecipação</h2><p class="sub" style="margin-bottom:16px">Dinheiro que você já adiantou em um empréstimo.</p>
+          <div id="aInst"></div>
+          <div class="form-grid"><div class="field full"><label for="aEmp">Empréstimo</label><select id="aEmp"></select></div>
+            <div class="field"><label for="aData">Data</label><input type="date" id="aData"></div>
+            <div class="field"><label for="aValor">Valor adiantado (R$)</label><input id="aValor" inputmode="decimal" placeholder="2500,00"></div>
+            <div class="field full"><label for="aObs">Observação</label><input id="aObs" maxlength="120"></div></div>
+          <p id="aMsg" role="status" style="font-weight:600;margin:14px 0 0"></p><button class="btn" onclick="antecipar()">Registrar antecipação</button></div>
+        <div id="dAnt"></div>
+      </div>
+
+      <div class="st" data-s="qui" hidden>
+        <div class="panel wide"><h2>Empréstimo cadastrado</h2><p class="sub" style="margin-bottom:14px">Quanto custa quitar ou antecipar parcelas (valor presente pela taxa do contrato).</p>
+          <div class="form-grid"><div class="field full"><label for="qEmp">Empréstimo</label><select id="qEmp" onchange="simQ()">
+            </select></div>
+            <div class="field"><label for="qN">Antecipar as últimas quantas parcelas?</label><input id="qN" type="number" min="1" oninput="simQ()"></div>
+            <div class="field"><label for="qP">Antecipar UMA parcela (nº)</label><input id="qP" type="number" min="1" oninput="simQ()"></div>
+            <div class="field full"><label for="qA">Abater um valor do saldo (R$)</label><input id="qA" inputmode="decimal" placeholder="Ex.: 2500,00" oninput="simQ()"></div></div>
+          <div id="qRes" role="status" style="margin-top:14px"></div></div>
+        <div class="panel wide"><h2>Simulador livre</h2><p class="sub" style="margin-bottom:14px">Para um empréstimo que ainda não está cadastrado.</p>
+          <div class="form-grid">
+            <div class="field"><label for="fValor">Valor financiado (R$)</label><input id="fValor" inputmode="decimal" oninput="simF()"></div>
+            <div class="field"><label for="fN">Nº de parcelas</label><input id="fN" type="number" min="1" oninput="simF()"></div>
+            <div class="field"><label for="fParc">Valor da parcela (R$)</label><input id="fParc" inputmode="decimal" oninput="simF()"></div>
+            <div class="field"><label for="fTaxa">Taxa mensal (%) — vazio calcula</label><input id="fTaxa" inputmode="decimal" oninput="simF()"></div>
+            <div class="field"><label for="fPagas">Parcelas já pagas</label><input id="fPagas" type="number" min="0" oninput="simF()"></div>
+            <div class="field"><label for="fAnt">Nº da parcela a antecipar</label><input id="fAnt" type="number" min="1" oninput="simF()"></div>
+            <div class="field"><label for="fA">Abater um valor do saldo (R$)</label><input id="fA" inputmode="decimal" oninput="simF()"></div></div>
+          <div id="fRes" role="status" style="margin-top:14px"></div></div>
+      </div>
+
+      <div class="st" data-s="cartao" hidden>
+        <div class="panel wide"><h2>Nova compra parcelada no cartão</h2>
+          <p class="sub" style="margin-bottom:16px">Informe o valor total e em quantas vezes foi parcelado (1x ou mais). Se a compra tiver juros, preencha o valor da parcela. A parcela do mês atual conta como "a pagar" até o mês virar.</p>
+          <div class="form-grid">
+            <div class="field full"><label for="cpDesc">O que foi comprado</label><input id="cpDesc" maxlength="80" placeholder="Ex.: Geladeira"></div>
+            <div class="field"><label for="cpCartao">Cartão</label><input id="cpCartao" maxlength="40" placeholder="Ex.: Nubank"></div>
+            <div class="field"><label for="cpData">Data da compra</label><input id="cpData" type="date"></div>
+            <div class="field"><label for="cpTotal">Valor total (R$)</label><input id="cpTotal" inputmode="decimal" oninput="cartaoCalc()"></div>
+            <div class="field"><label for="cpN">Nº de parcelas</label><input id="cpN" type="number" min="1" step="1" value="1" list="cpOpc" oninput="cartaoCalc()">
+              <datalist id="cpOpc"><option value="1"><option value="2"><option value="3"><option value="4"><option value="5"><option value="6"><option value="10"><option value="12"><option value="18"><option value="24"><option value="36"></datalist></div>
+            <div class="field"><label for="cpParc">Valor da parcela (R$) — opcional, use se tiver juros</label><input id="cpParc" inputmode="decimal" oninput="cartaoCalc()"></div>
+            <div class="field"><label for="cpMes">1ª parcela na fatura de</label><input id="cpMes" type="month"></div>
+          </div>
+          <p id="cpCalc" class="sub" style="margin-top:12px"></p>
+          <p id="cpMsg" role="status" style="font-weight:600;margin:10px 0 0"></p>
+          <button class="btn" onclick="cartaoSalvar()">Salvar compra</button></div>
+        <div id="cpPrev"></div>
+        <div class="tool"><div><h2>Compras parceladas</h2><p id="cpTot">Carregando...</p></div></div>
+        <div id="cpLista"></div>
+      </div>
+    </section>
+
+    <!-- CONTRACHEQUE (aba Contracheque) -->
+    <section id="cc" hidden><div id="ccBox"></div></section>
+
+    <!-- CONFIG (aba Config, usuários e reset) -->
+    <section id="cfg" hidden><div id="cBox"></div></section>
+
+    <!-- APOIE O PROJETO -->
+    <section id="apoie" hidden>
+      <div class="panel wide"><p class="ap-txt" id="apTxt"></p></div>
+      <div class="ap-grid" id="apGrid"></div>
+    </section>
+
+    <footer class="app-footer"><b style="color:var(--primary)">SheetFin</b> · Seu dinheiro sob controle. · <button class="link" type="button" onclick="apoieAbrir()">♥ Apoie o projeto</button></footer>
+  </main>
+</div>
+
+<script src="js/config.js?v=2026.11.18.1"></script>
+<script src="js/api.js?v=2026.11.18.1"></script>
+<script src="js/apoie.js?v=2026.11.18.1"></script>
+<script src="js/app.js?v=2026.11.18.1"></script>
+<script src="js/login.js?v=2026.11.18.1"></script>
+<script src="js/pwa.js?v=2026.11.18.1"></script>
+</body></html>
