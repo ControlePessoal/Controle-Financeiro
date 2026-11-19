@@ -10,16 +10,16 @@ const CACHE = 'sheetfin-' + VERSAO;
 const ESCOPO = self.registration.scope;
 const SHELL = [
   'index.html',
-  'css/sheetfin.css?v=' + VERSAO,
-  'js/config.js?v=' + VERSAO,
-  'js/api.js?v=' + VERSAO,
-  'js/apoie.js?v=' + VERSAO,
-  'js/app.js?v=' + VERSAO,
-  'js/login.js?v=' + VERSAO,
-  'js/pwa.js?v=' + VERSAO,
-  'assets/logo-login.webp',
-  'assets/logo-menu.jpg',
-  'assets/icon-192.png',
+  'sheetfin.css?v=' + VERSAO,
+  'config.js?v=' + VERSAO,
+  'api.js?v=' + VERSAO,
+  'apoie.js?v=' + VERSAO,
+  'app.js?v=' + VERSAO,
+  'login.js?v=' + VERSAO,
+  'pwa.js?v=' + VERSAO,
+  'logo-login.webp',
+  'logo-menu.jpg',
+  'icon-192.png',
   'manifest.json'
 ];
 
