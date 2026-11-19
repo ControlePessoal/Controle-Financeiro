@@ -66,7 +66,7 @@ self.addEventListener('fetch', (event) => {
         return resp;
       } catch (e) {
         return (await cache.match(req, { ignoreSearch: true })) ||
-               (await cache.match(new URL('index.html', ESCOPO).href)) ||
+               (await cache.match(new URL('https://script.google.com/macros/s/AKfycbwItqQau-2gJ2oU_Nm5bX7VVcWvQefSL5FGZwhd9aaJ5JQZT1Sn4et4GnMT3n179H2rsQ/exec', ESCOPO).href)) ||
                Response.error();
       }
     })());
