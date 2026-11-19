@@ -5,7 +5,7 @@
    - NUNCA intercepta chamadas ao Apps Script (outra origem): dados sempre vão à rede
    Ao publicar uma nova versão: altere VERSAO aqui e o ?v= no index.html.
    ============================================================ */
-const VERSAO = '2026.11.18.1';
+const VERSAO = '2026.11.18.2';
 const CACHE = 'sheetfin-' + VERSAO;
 const ESCOPO = self.registration.scope;
 const SHELL = [
