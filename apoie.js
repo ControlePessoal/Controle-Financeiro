@@ -60,7 +60,7 @@ function apoieAbrir(){
        ti:pt.textContent,su:ps.textContent,ic:pi.innerHTML,on:document.querySelector('nav button.on')};
   secs.forEach(function(s){s.hidden=(s!==ap)});
   w.hidden=true;t.hidden=false;
-  pt.textContent='Apoie o projeto';ps.textContent='Ajude este trabalho a continuar.';
+  pt.textContent='Apoie o projeto';document.getElementById('abTitle').textContent='Apoie o projeto';ps.textContent='Ajude este trabalho a continuar.';
   pi.innerHTML='<svg viewBox="0 0 24 24">'+'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.2l7.8-7.7 1-1.1a5.5 5.5 0 0 0 0-7.8z"/>'+'</svg>';
   [].forEach.call(document.querySelectorAll('nav button.on'),function(b){b.classList.remove('on')});
   document.querySelector('nav button[data-apoie]').classList.add('on');
@@ -72,7 +72,7 @@ function apoieFechar(){
   ap.hidden=true;
   if(_ap.sec)_ap.sec.hidden=false;
   document.getElementById('welcome').hidden=_ap.w;document.getElementById('topbar').hidden=_ap.t;
-  document.getElementById('pageTitle').textContent=_ap.ti;document.getElementById('pageSubtitle').textContent=_ap.su;
+  document.getElementById('pageTitle').textContent=_ap.ti;document.getElementById('abTitle').textContent=_ap.ti;document.getElementById('pageSubtitle').textContent=_ap.su;
   document.getElementById('pageIco').innerHTML=_ap.ic;
   document.querySelector('nav button[data-apoie]').classList.remove('on');
   if(_ap.on)_ap.on.classList.add('on');

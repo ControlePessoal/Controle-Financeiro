@@ -352,3 +352,13 @@ body:has(#login){background:#ffffff !important}
 @media (max-width:340px){
   #login .brand-icon{width:56px}
 }
+
+/* ===== Barra superior estilo Garageiro ===== */
+.appbar{align-items:center;gap:12px;min-height:60px;padding:0 18px;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-top:3px solid var(--primary);box-shadow:0 1px 0 var(--line),0 4px 16px rgba(15,23,42,.05)}
+.hb{flex:0 0 42px;width:42px;height:42px;border:1px solid var(--line);border-radius:10px;background:#fff;color:#1a2433;box-shadow:0 2px 8px rgba(15,23,42,.08)}
+.hb:hover{background:var(--light)}
+.ab-logo{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--primary);box-shadow:0 2px 8px rgba(15,23,42,.2)}
+.ab-txt{min-width:0}
+.ab-t{font-size:18px;font-weight:800;letter-spacing:-.02em;line-height:1.15;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ab-s{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:700px){.appbar{padding:0 12px;min-height:56px}.hb{flex-basis:42px;width:42px}.ab-t{font-size:16px}}
